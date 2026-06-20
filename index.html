@@ -170,6 +170,14 @@ tbody td{padding:14px 16px;vertical-align:middle}
 .empty-state svg{opacity:.3;margin-bottom:.75rem}
 .empty-state p{font-size:.875rem}
 
+/* Sticky tab bar */
+.tab-bar{position:sticky;top:0;z-index:20;background:var(--bg);padding-top:.4rem}
+.tab-bar::after{content:'';position:absolute;bottom:0;left:-2rem;right:-2rem;height:1px;background:var(--border)}
+
+/* Scroll-to-top button */
+#scroll-top-btn{position:fixed;bottom:1.75rem;right:1.75rem;width:38px;height:38px;border-radius:50%;background:var(--surface);border:1px solid rgba(255,255,255,0.12);color:var(--text-2);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s,background .15s,color .15s;z-index:100}
+#scroll-top-btn:hover{background:rgba(255,255,255,0.1);color:var(--text)}
+
 /* Tab description bar */
 .tab-desc-bar{font-size:.8rem;line-height:1.6;padding:.7rem 1rem .7rem 1.1rem;border-radius:10px;margin-bottom:1.5rem;border-left:3px solid transparent}
 .td-good{background:rgba(34,197,94,0.07);border-left-color:#4ade80;color:#86efac}
@@ -238,6 +246,9 @@ tbody td{padding:14px 16px;vertical-align:middle}
 </style>
 </head>
 <body>
+<button id="scroll-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12V4M4 7l4-4 4 4"/></svg>
+</button>
 <div class="page">
 
   <div class="page-header">
@@ -487,7 +498,7 @@ tbody td{padding:14px 16px;vertical-align:middle}
     <div class="css-stat-grid" style="max-width:none;grid-template-columns:repeat(4,1fr)">
       <div class="css-stat-card">
         <div class="css-stat-label">Total classes</div>
-        <div class="css-stat-val">6,834</div>
+        <div class="css-stat-val" data-count="6834">6,834</div>
         <div class="css-stat-sub">Unique selectors · no hard limit in Webflow</div>
       </div>
       <div class="css-stat-card">
@@ -502,7 +513,7 @@ tbody td{padding:14px 16px;vertical-align:middle}
       </div>
       <div class="css-stat-card">
         <div class="css-stat-label">Old variables</div>
-        <div class="css-stat-val css-stat-bad">28</div>
+        <div class="css-stat-val css-stat-bad" data-count="28">28</div>
         <div class="css-stat-sub">--old-* still in use</div>
       </div>
     </div>
@@ -669,23 +680,23 @@ tbody td{padding:14px 16px;vertical-align:middle}
       <!-- Top-line numbers -->
       <div class="summary-numbers" style="display:grid;grid-template-columns:repeat(5,1fr);gap:.65rem;margin-bottom:2rem">
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.9rem 1rem;text-align:center">
-          <div style="font-size:1.6rem;font-weight:700;color:#60a5fa">32</div>
+          <div style="font-size:1.6rem;font-weight:700;color:#60a5fa" data-count="32">32</div>
           <div style="font-size:.68rem;color:var(--text-3);margin-top:.2rem;text-transform:uppercase;letter-spacing:.04em">Components</div>
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.9rem 1rem;text-align:center">
-          <div style="font-size:1.6rem;font-weight:700;color:#fbbf24">11</div>
+          <div style="font-size:1.6rem;font-weight:700;color:#fbbf24" data-count="11">11</div>
           <div style="font-size:.68rem;color:var(--text-3);margin-top:.2rem;text-transform:uppercase;letter-spacing:.04em">Legacy items</div>
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.9rem 1rem;text-align:center">
-          <div style="font-size:1.6rem;font-weight:700;color:#f87171">660</div>
+          <div style="font-size:1.6rem;font-weight:700;color:#f87171" data-count="660">660</div>
           <div style="font-size:.68rem;color:var(--text-3);margin-top:.2rem;text-transform:uppercase;letter-spacing:.04em">Duplicate classes</div>
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.9rem 1rem;text-align:center">
-          <div style="font-size:1.6rem;font-weight:700;color:#f87171">34</div>
+          <div style="font-size:1.6rem;font-weight:700;color:#f87171" data-count="34">34</div>
           <div style="font-size:.68rem;color:var(--text-3);margin-top:.2rem;text-transform:uppercase;letter-spacing:.04em">Perf · desktop</div>
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.9rem 1rem;text-align:center">
-          <div style="font-size:1.6rem;font-weight:700;color:#f87171">25</div>
+          <div style="font-size:1.6rem;font-weight:700;color:#f87171" data-count="25">25</div>
           <div style="font-size:.68rem;color:var(--text-3);margin-top:.2rem;text-transform:uppercase;letter-spacing:.04em">Perf · mobile</div>
         </div>
       </div>
@@ -999,6 +1010,35 @@ function sortDups(col) {
   renderDups(sorted);
 }
 
+/* ── Count-up ── */
+function countUp(el) {
+  var target = parseInt(el.getAttribute('data-count'), 10);
+  if (isNaN(target)) return;
+  var duration = Math.min(900, 200 + target * 0.25);
+  var startTime = null;
+  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+  function step(ts) {
+    if (!startTime) startTime = ts;
+    var progress = Math.min((ts - startTime) / duration, 1);
+    var val = Math.round(ease(progress) * target);
+    el.textContent = val.toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString();
+  }
+  requestAnimationFrame(step);
+}
+function runCountUps(panel) {
+  panel.querySelectorAll('[data-count]').forEach(countUp);
+}
+
+/* ── Scroll-to-top ── */
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('scroll-top-btn');
+  var show = window.scrollY > 320;
+  btn.style.opacity = show ? '1' : '0';
+  btn.style.pointerEvents = show ? 'auto' : 'none';
+}, {passive: true});
+
 var tabDescriptions = {
   components:  {s:'good',  t:'28 of 32 components score 10/10 — the Lumos library is clean and consistent. The only weak spots are the Footer and the two NavBar variants, both flagged for mixed naming conventions. Overall the component layer is in good shape.'},
   duplicates:  {s:'warn',  t:'The navigation is fragmented: 7 separate nav components exist where there should be 2 (one standard, one light). Global Styles also exists twice under different names with 66+ active instances between them. This is the most straightforward consolidation win on the site.'},
@@ -1019,6 +1059,7 @@ function showTab(id,btn) {
     desc.textContent = tabDescriptions[id].t;
     desc.className = 'tab-desc-bar td-' + tabDescriptions[id].s;
   }
+  runCountUps(document.getElementById('tab-'+id));
 }
 
 function showInnerTab(id,btn) {
@@ -1117,6 +1158,7 @@ renderLegacy(legacy);
 var _d = document.getElementById('tab-description');
 _d.textContent = tabDescriptions['components'].t;
 _d.className = 'tab-desc-bar td-' + tabDescriptions['components'].s;
+runCountUps(document.getElementById('tab-components'));
 
 var dupClasses = [
   [".accordion_component",[2],"comp"],[".accordion_content_padding",[2],"comp"],[".accordion_content_text",[2],"comp"],[".accordion_content_wrap",[2],"comp"],[".accordion_list",[2],"comp"],[".accordion_toggle_button",[2],"comp"],[".accordion_toggle_heading",[2],"comp"],[".accordion_toggle_icon",[2],"comp"],[".accordion_wrap",[2],"comp"],
@@ -1259,8 +1301,12 @@ var uDupClasses = [
 uDupClasses.forEach(function(r){ dupClasses.push([r[0], r[1], 'u']); });
 
 renderDupClasses(dupClasses);
-document.getElementById('stat-dup-base').textContent = dupClasses.filter(function(r){ return r[2] !== 'u'; }).length;
-document.getElementById('stat-dup-u').textContent = dupClasses.filter(function(r){ return r[2] === 'u'; }).length;
+var _base = dupClasses.filter(function(r){ return r[2] !== 'u'; }).length;
+var _u = dupClasses.filter(function(r){ return r[2] === 'u'; }).length;
+var _elBase = document.getElementById('stat-dup-base');
+var _elU = document.getElementById('stat-dup-u');
+_elBase.setAttribute('data-count', _base); _elBase.textContent = _base;
+_elU.setAttribute('data-count', _u); _elU.textContent = _u;
 </script>
 </body>
 </html>
