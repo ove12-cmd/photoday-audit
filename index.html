@@ -170,6 +170,13 @@ tbody td{padding:14px 16px;vertical-align:middle}
 .empty-state svg{opacity:.3;margin-bottom:.75rem}
 .empty-state p{font-size:.875rem}
 
+/* Tab description bar */
+.tab-desc-bar{font-size:.8rem;line-height:1.6;padding:.7rem 1rem .7rem 1.1rem;border-radius:10px;margin-bottom:1.5rem;border-left:3px solid transparent}
+.td-good{background:rgba(34,197,94,0.07);border-left-color:#4ade80;color:#86efac}
+.td-warn{background:rgba(251,191,36,0.07);border-left-color:#fbbf24;color:#fde68a}
+.td-bad{background:rgba(248,113,113,0.07);border-left-color:#f87171;color:#fca5a5}
+.td-info{background:rgba(96,165,250,0.07);border-left-color:#60a5fa;color:#93c5fd}
+
 /* ── Mobile responsive ── */
 @media(max-width:640px){
   .page{padding:1.25rem 1rem 4rem}
@@ -259,7 +266,7 @@ tbody td{padding:14px 16px;vertical-align:middle}
     <button class="tab-btn" onclick="showTab('clarity',this)">Clarity setup</button>
     <button class="tab-btn" onclick="showTab('summary',this)">Monday summary</button>
   </div>
-  <div id="tab-description" style="font-size:.78rem;color:var(--text-3);margin-bottom:1.25rem;line-height:1.5"></div>
+  <div id="tab-description" class="tab-desc-bar td-good"></div>
 
   <div id="tab-components" class="tab-panel active">
     <div class="search-wrap">
@@ -993,13 +1000,13 @@ function sortDups(col) {
 }
 
 var tabDescriptions = {
-  components:  '28 of 32 components score 10/10 — the Lumos library is clean and consistent. The only weak spots are the Footer (6.0) and the two NavBar variants, both flagged for mixed naming conventions. Overall the component layer is in good shape.',
-  duplicates:  'The navigation is fragmented: 7 separate nav components exist where there should be 2 (one standard, one light). Global Styles also exists twice under different names with 66+ active instances between them. This is the most straightforward consolidation win on the site.',
-  legacy:      '8 of the 11 legacy components are still live on pages — they\'re not hidden, they\'re actively rendering. The worst offender is Global Styles with 66 instances, followed by Footer CTA Block at 26. These are real regression risks every time the design system changes.',
-  speed:       'Performance is the biggest problem on the site. Desktop scores 34/100 and mobile scores 25/100 — both deep in the red. Anything under 50 hurts conversion. The good news: SEO is a perfect 100 on both devices and accessibility is a solid 85.',
-  css:         'The stylesheet is heavily bloated. 660 classes are just numbered copies of other classes, 3 separate variable systems define the same colour tokens, and two utility frameworks (Lumos u- and Client-First) are competing for the same layout jobs. Architecture scores average around 3–4/10 — the underlying design system is solid, but years of pasting between projects has left a lot of debris.',
-  clarity:     'Clarity is not installed yet — there is currently zero visibility into how users actually behave on the site. No session recordings, no heatmaps, no click data. This is a 10-minute GTM install and should be done before any optimisation work starts so decisions can be based on real data.',
-  summary:     'The Lumos component library is the healthiest part of the site. Everything else needs work: performance is critically low, the stylesheet is bloated with 660 duplicate classes, and 8 legacy components are still live. The cleanup is achievable — it\'s mostly removing what doesn\'t belong rather than rebuilding from scratch.'
+  components:  {s:'good',  t:'28 of 32 components score 10/10 — the Lumos library is clean and consistent. The only weak spots are the Footer (6.0) and the two NavBar variants, both flagged for mixed naming conventions. Overall the component layer is in good shape.'},
+  duplicates:  {s:'warn',  t:'The navigation is fragmented: 7 separate nav components exist where there should be 2 (one standard, one light). Global Styles also exists twice under different names with 66+ active instances between them. This is the most straightforward consolidation win on the site.'},
+  legacy:      {s:'warn',  t:'8 of the 11 legacy components are still live on pages — they\'re not hidden, they\'re actively rendering. The worst offender is Global Styles with 66 instances, followed by Footer CTA Block at 26. These are real regression risks every time the design system changes.'},
+  speed:       {s:'bad',   t:'Performance is the biggest problem on the site. Desktop scores 34/100 and mobile scores 25/100 — both deep in the red. Anything under 50 hurts conversion. The good news: SEO is a perfect 100 on both devices and accessibility is a solid 85.'},
+  css:         {s:'bad',   t:'The stylesheet is heavily bloated. 660 classes are just numbered copies of other classes, 3 separate variable systems define the same colour tokens, and two utility frameworks (Lumos u- and Client-First) are competing for the same layout jobs. Architecture scores average around 3–4/10 — the underlying design system is solid, but years of pasting between projects has left a lot of debris.'},
+  clarity:     {s:'warn',  t:'Clarity is not installed yet — there is currently zero visibility into how users actually behave on the site. No session recordings, no heatmaps, no click data. This is a 10-minute GTM install and should be done before any optimisation work starts so decisions can be based on real data.'},
+  summary:     {s:'info',  t:'The Lumos component library is the healthiest part of the site. Everything else needs work: performance is critically low, the stylesheet is bloated with 660 duplicate classes, and 8 legacy components are still live. The cleanup is achievable — it\'s mostly removing what doesn\'t belong rather than rebuilding from scratch.'}
 };
 
 function showTab(id,btn) {
@@ -1008,7 +1015,10 @@ function showTab(id,btn) {
   document.getElementById('tab-'+id).classList.add('active');
   btn.classList.add('active');
   var desc = document.getElementById('tab-description');
-  if(desc) desc.textContent = tabDescriptions[id] || '';
+  if(desc && tabDescriptions[id]) {
+    desc.textContent = tabDescriptions[id].t;
+    desc.className = 'tab-desc-bar td-' + tabDescriptions[id].s;
+  }
 }
 
 function showInnerTab(id,btn) {
@@ -1104,7 +1114,9 @@ function onSearchLegacy(q) {
 renderComps(comps);
 renderDups(dups);
 renderLegacy(legacy);
-document.getElementById('tab-description').textContent = tabDescriptions['components'];
+var _d = document.getElementById('tab-description');
+_d.textContent = tabDescriptions['components'].t;
+_d.className = 'tab-desc-bar td-' + tabDescriptions['components'].s;
 
 var dupClasses = [
   [".accordion_component",[2],"comp"],[".accordion_content_padding",[2],"comp"],[".accordion_content_text",[2],"comp"],[".accordion_content_wrap",[2],"comp"],[".accordion_list",[2],"comp"],[".accordion_toggle_button",[2],"comp"],[".accordion_toggle_heading",[2],"comp"],[".accordion_toggle_icon",[2],"comp"],[".accordion_wrap",[2],"comp"],
