@@ -170,6 +170,58 @@ tbody td{padding:14px 16px;vertical-align:middle}
 .empty-state svg{opacity:.3;margin-bottom:.75rem}
 .empty-state p{font-size:.875rem}
 
+/* ── Mobile responsive ── */
+@media(max-width:640px){
+  .page{padding:1.25rem 1rem 4rem}
+  .page-header h1{font-size:1.35rem}
+  .page-header .sub{font-size:.78rem}
+  .header-right{gap:.5rem}
+  .date-chip{display:none}
+
+  /* Tabs: horizontal scroll */
+  .tab-bar{overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;scrollbar-width:none;flex-wrap:nowrap}
+  .tab-bar::-webkit-scrollbar{display:none}
+  .tab-btn{padding:.6rem .9rem;font-size:.8rem;flex-shrink:0}
+
+  /* Stats */
+  .stats-grid{grid-template-columns:1fr 1fr;gap:.65rem}
+  .stat-card{padding:1rem 1rem;gap:.75rem}
+  .stat-num{font-size:1.6rem}
+  .stat-icon{width:38px;height:38px}
+
+  /* Tables: allow horizontal scroll */
+  .table-card{border-radius:12px;overflow-x:auto}
+  table{min-width:520px}
+  .css-card{overflow-x:auto}
+  .css-card table{min-width:420px}
+
+  /* Components table */
+  .comp-icon{width:32px;height:32px}
+  .comp-name{font-size:.8rem}
+  tbody td{padding:10px 12px}
+  thead th{padding:9px 12px}
+
+  /* CSS audit */
+  .css-stat-grid{grid-template-columns:repeat(2,1fr)!important;max-width:none!important}
+  .inner-tab-bar{gap:3px}
+  .inner-tab-btn{padding:.35rem .75rem;font-size:.75rem}
+  .dup-filter-pills{gap:.3rem}
+  .dup-pill{padding:.25rem .65rem;font-size:.7rem}
+
+  /* Lighthouse */
+  .lh-grid{grid-template-columns:1fr}
+  .lh-scores{gap:.25rem}
+
+  /* Summary */
+  .summary-numbers{grid-template-columns:repeat(3,1fr)!important}
+  .summary-roadmap{overflow-x:auto}
+  .summary-roadmap table{min-width:480px}
+}
+@media(max-width:400px){
+  .summary-numbers{grid-template-columns:repeat(2,1fr)!important}
+  .css-stat-grid{grid-template-columns:1fr!important}
+}
+
 /* Group rows */
 .group-row td{padding:0;border-top:none!important}
 .group-header{display:flex;align-items:center;gap:.6rem;padding:20px 16px 8px;border-top:1px solid #f0f0f8}
@@ -607,7 +659,7 @@ tbody td{padding:14px 16px;vertical-align:middle}
       </div>
 
       <!-- Top-line numbers -->
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.65rem;margin-bottom:2rem">
+      <div class="summary-numbers" style="display:grid;grid-template-columns:repeat(5,1fr);gap:.65rem;margin-bottom:2rem">
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.9rem 1rem;text-align:center">
           <div style="font-size:1.6rem;font-weight:700;color:#60a5fa">32</div>
           <div style="font-size:.68rem;color:var(--text-3);margin-top:.2rem;text-transform:uppercase;letter-spacing:.04em">Components</div>
@@ -709,7 +761,7 @@ tbody td{padding:14px 16px;vertical-align:middle}
 
       <!-- Recommended order -->
       <div style="font-size:.72rem;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.65rem">Recommended order of work</div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1.75rem">
+      <div class="summary-roadmap" style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1.75rem">
         <table style="width:100%;border-collapse:collapse;font-size:.8rem">
           <thead>
             <tr style="border-bottom:1px solid var(--border)">
