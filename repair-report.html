@@ -157,25 +157,25 @@
       <h1>Photoday.com — site repair report</h1>
       <span class="date-chip">June 2026</span>
     </div>
-    <p class="header-sub">Full audit of components, CSS, performance, and analytics. Items ordered by priority.</p>
+    <p class="header-sub">A summary of what needs to be fixed on photoday.com, in order of priority.</p>
   </div>
 
   <div class="summary-row">
     <div class="stat-card">
       <div class="stat-val red">25</div>
-      <div class="stat-lbl">Perf · mobile</div>
+      <div class="stat-lbl">Speed · mobile</div>
     </div>
     <div class="stat-card">
       <div class="stat-val red">34</div>
-      <div class="stat-lbl">Perf · desktop</div>
+      <div class="stat-lbl">Speed · desktop</div>
     </div>
     <div class="stat-card">
       <div class="stat-val amber">660</div>
-      <div class="stat-lbl">Duplicate classes</div>
+      <div class="stat-lbl">Unused style clutter</div>
     </div>
     <div class="stat-card">
       <div class="stat-val blue">8</div>
-      <div class="stat-lbl">Legacy components live</div>
+      <div class="stat-lbl">Outdated page sections</div>
     </div>
   </div>
 
@@ -187,89 +187,89 @@
   </div>
 
   <div style="background:rgba(96,165,250,0.07);border-left:3px solid #60a5fa;border-radius:0 8px 8px 0;padding:.7rem 1rem;margin-bottom:2rem;font-size:.82rem;color:#93c5fd;line-height:1.55">
-    <strong style="font-weight:600">Design system decision:</strong> Lumos is the agreed framework going forward. All new components, CSS tokens, and utility classes should follow Lumos conventions.
+    <strong style="font-weight:600">Agreed direction:</strong> All new design and development work on the site will use the Lumos design system. Nothing currently on the site will be removed — only new work follows this rule.
   </div>
 
   <div class="section">
-    <div class="section-label">Performance</div>
+    <div class="section-label">Site speed</div>
 
     <div class="item">
       <div class="item-icon red">1</div>
       <div class="item-body">
-        <div class="item-title">Audit and reduce third-party scripts</div>
-        <div class="item-desc">Lighthouse identifies render-blocking scripts as the top bottleneck. Run a full script audit — identify any unused tags, old tracking pixels, or duplicated analytics snippets and remove them. This alone can move the performance score by 10–15 points.</div>
+        <div class="item-title">Find and remove scripts that are slowing the site down</div>
+        <div class="item-desc">The site loads too many background scripts — old tracking codes, unused tools, and duplicates that nobody cleaned up. We need to go through them, remove the ones that aren't needed, and keep only what's actually in use. This is the single biggest thing we can do to improve load speed.</div>
       </div>
     </div>
 
     <div class="item">
       <div class="item-icon red">2</div>
       <div class="item-body">
-        <div class="item-title">Optimise images across all pages</div>
-        <div class="item-desc">Convert images to WebP, enable lazy loading on below-the-fold images, and fix any images served at 2–3× their display size. Images are a major contributor to the 25/100 mobile score.</div>
+        <div class="item-title">Fix images — they're too heavy and slowing down every page</div>
+        <div class="item-desc">Many images on the site are much larger than they need to be, which makes pages slow to load — especially on mobile. We'll convert them to a lighter format and make sure images only load when the visitor actually scrolls to them.</div>
       </div>
     </div>
 
     <div class="item">
       <div class="item-icon red">3</div>
       <div class="item-body">
-        <div class="item-title">Enable Webflow asset compression and CDN settings</div>
-        <div class="item-desc">Check that Webflow's built-in minification is on, assets are served from the CDN edge, and no custom code is bypassing it. Quick setting check but high leverage.</div>
+        <div class="item-title">Turn on Webflow's built-in speed settings</div>
+        <div class="item-desc">Webflow has built-in options that compress files and serve them faster — they just need to be switched on. A quick settings check with immediate impact on load time.</div>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-label">CSS cleanup</div>
+    <div class="section-label">Styling</div>
 
     <div class="item">
       <div class="item-icon amber">4</div>
       <div class="item-body">
-        <div class="item-title">Stop adding new duplicate CSS classes</div>
-        <div class="item-desc">660 numbered class clones already exist (e.g. <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">button-2</code>, <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">u-gap-2-2</code>) — these stay in place. Going forward, use Lumos class names directly instead of letting Webflow create numbered clones when pasting components.</div>
+        <div class="item-title">Stop creating style duplicates when adding new sections</div>
+        <div class="item-desc">Over time, 660 extra style copies have built up on the site from different people pasting in components. These stay as-is, but going forward we'll follow a clear process to avoid adding more.</div>
       </div>
     </div>
 
     <div class="item">
       <div class="item-icon amber">5</div>
       <div class="item-body">
-        <div class="item-title">Replace 3 competing CSS colour systems with one</div>
-        <div class="item-desc">Three separate colour token sets define the same values. Switch everything over to the Lumos system and update the 28 old variables still in use.</div>
+        <div class="item-title">Use one colour system across the whole site</div>
+        <div class="item-desc">The site currently has 3 different places where colours are defined, which leads to inconsistencies. We'll switch everything to use a single set of colours so the site stays consistent and is easier to update in the future.</div>
       </div>
     </div>
 
     <div class="item">
       <div class="item-icon amber">6</div>
       <div class="item-body">
-        <div class="item-title">Build new work in Lumos only — leave existing Finsweet in place</div>
-        <div class="item-desc">Lumos is the agreed design system going forward. Existing Finsweet/Client-First components and classes stay untouched. All new components, layouts, and utilities should be built using Lumos — no new Finsweet code added to the project.</div>
+        <div class="item-title">All new work built with Lumos — nothing existing removed</div>
+        <div class="item-desc">Going forward, all new sections and components will be built using the Lumos design system. Existing work stays untouched — this is purely about making sure everything added from here on follows one consistent approach.</div>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-label">Components</div>
+    <div class="section-label">Page sections</div>
 
     <div class="item">
       <div class="item-icon amber">7</div>
       <div class="item-body">
-        <div class="item-title">Replace 8 legacy components still live on pages</div>
-        <div class="item-desc">8 of 11 legacy components are still rendering on live pages. Swap each for its Lumos equivalent. Low risk since Lumos replacements already exist — this is a find-and-replace job in the Webflow designer.</div>
+        <div class="item-title">Update 8 outdated page sections to the current versions</div>
+        <div class="item-desc">8 sections across the site are still using old versions that should have been replaced. The updated versions already exist — it's just a case of swapping them in page by page.</div>
       </div>
     </div>
 
     <div class="item">
       <div class="item-icon amber">8</div>
       <div class="item-body">
-        <div class="item-title">Replace 7 navigation components with 2</div>
-        <div class="item-desc">There are 7 separate nav variants where there should be 2 (default + light start). The extras are duplicates left behind by different agencies. Replace them with the two standard versions across all pages.</div>
+        <div class="item-title">Clean up the navigation — 7 versions exist, only 2 are needed</div>
+        <div class="item-desc">Over time, 7 slightly different versions of the navigation have been created by different teams. Only 2 are actually needed. We'll replace the extras with the correct versions across all pages.</div>
       </div>
     </div>
 
     <div class="item">
       <div class="item-icon green">9</div>
       <div class="item-body">
-        <div class="item-title">Fix naming on Footer and NavBar components</div>
-        <div class="item-desc">Footer (primary) and both NavBar variants have mixed naming conventions — some classes use camelCase, some use BEM, some are unlabelled. Low risk cleanup, just rename in the Webflow style manager.</div>
+        <div class="item-title">Tidy up the names on the footer and navigation sections</div>
+        <div class="item-desc">The footer and navigation have inconsistent internal names, making them harder to work with. A straightforward rename to bring them in line with everything else — no visual changes to the site.</div>
       </div>
     </div>
   </div>
@@ -280,14 +280,14 @@
     <div class="item">
       <div class="item-icon blue">10</div>
       <div class="item-body">
-        <div class="item-title">Install Microsoft Clarity</div>
-        <div class="item-desc">Currently zero session recording or heatmap visibility. PhotoDay creates a free Clarity account, gets the snippet, and it gets added via Google Tag Manager. Takes about 10 minutes and provides immediate user behaviour data once traffic flows.</div>
+        <div class="item-title">Set up visitor recordings so we can see how people use the site</div>
+        <div class="item-desc">Right now there's no way to see where visitors click, where they drop off, or what's confusing them. Microsoft Clarity is a free tool that records sessions and shows heatmaps. Quick to set up — gives immediate insight into how the site is actually being used.</div>
       </div>
     </div>
   </div>
 
   <div class="footer-note">
-    Prepared June 2026 · Based on Lighthouse lab data, Webflow style manager export, and manual component audit · photoday.com homepage
+    Prepared June 2026 · photoday.com
   </div>
 
 </div>
