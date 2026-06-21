@@ -225,7 +225,7 @@
       <div class="item-icon amber">4</div>
       <div class="item-body">
         <div class="item-title">Stop creating style duplicates when adding new sections</div>
-        <div class="item-desc">Over time, 660 extra style copies have built up on the site from different people pasting in components. These stay as-is, but going forward we'll follow a clear process to avoid adding more.</div>
+        <div class="item-desc">Over time, 660 extra style copies have built up on the site from different people pasting in components. The ideal fix is to remove all unused classes entirely — if that's not possible, the minimum is to stop adding new ones. Going forward, use Lumos class names directly to avoid creating new numbered clones.</div>
       </div>
     </div>
 
@@ -233,7 +233,7 @@
       <div class="item-icon amber">5</div>
       <div class="item-body">
         <div class="item-title">Use one colour system across the whole site</div>
-        <div class="item-desc">The site currently has 3 different places where colours are defined, which leads to inconsistencies. We'll switch everything to use a single set of colours so the site stays consistent and is easier to update in the future.</div>
+        <div class="item-desc">The site currently has 3 different places where colours are defined, which leads to inconsistencies. Consolidate everything to Lumos tokens — this also means removing all unused colour variables that are no longer referenced anywhere on the site.</div>
       </div>
     </div>
 
@@ -282,6 +282,17 @@
       <div class="item-body">
         <div class="item-title">Set up visitor recordings so we can see how people use the site</div>
         <div class="item-desc">Right now there's no way to see where visitors click, where they drop off, or what's confusing them. Microsoft Clarity is a free tool that records sessions and shows heatmaps. Quick to set up — gives immediate insight into how the site is actually being used.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Bigger picture</div>
+    <div class="item">
+      <div class="item-icon red">11</div>
+      <div class="item-body">
+        <div class="item-title">Consider a full rebuild</div>
+        <div class="item-desc">Probably the easiest way to truly get this site on the right track — lightweight, fast, and built consistently from the ground up — is a full rebuild. Years of different agencies working in their own way has created layers of debt that are difficult to untangle piece by piece. If a rebuild isn't on the table, the fixes above are the next best path forward.</div>
       </div>
     </div>
   </div>
