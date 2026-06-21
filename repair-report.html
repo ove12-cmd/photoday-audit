@@ -224,8 +224,8 @@
     <div class="item">
       <div class="item-icon amber">4</div>
       <div class="item-body">
-        <div class="item-title">Remove 660 duplicate CSS classes</div>
-        <div class="item-desc">660 classes exist as numbered clones (e.g. <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">button-2</code>, <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">u-gap-2-2</code>). These are dead stylesheet weight from pasting components between projects. Safe to bulk-delete in Webflow's style manager.</div>
+        <div class="item-title">Stop adding new duplicate CSS classes</div>
+        <div class="item-desc">660 numbered class clones already exist (e.g. <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">button-2</code>, <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">u-gap-2-2</code>) — these stay in place. Going forward, use Lumos class names directly instead of letting Webflow create numbered clones when pasting components.</div>
       </div>
     </div>
 
@@ -240,8 +240,8 @@
     <div class="item">
       <div class="item-icon amber">6</div>
       <div class="item-body">
-        <div class="item-title">Phase out Client-First utilities in favour of Lumos</div>
-        <div class="item-desc">Lumos is the agreed design system going forward. Finsweet Client-First utilities are still competing for the same layout jobs and should be phased out. Identify all Client-First <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">u-</code> class usages and replace with their Lumos equivalents.</div>
+        <div class="item-title">Build new work in Lumos only — leave existing Finsweet in place</div>
+        <div class="item-desc">Lumos is the agreed design system going forward. Existing Finsweet/Client-First components and classes stay untouched. All new components, layouts, and utilities should be built using Lumos — no new Finsweet code added to the project.</div>
       </div>
     </div>
   </div>
