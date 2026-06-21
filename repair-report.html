@@ -98,7 +98,7 @@
     padding: 1rem 1.25rem;
     margin-bottom: .5rem;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr;
     gap: .75rem 1rem;
     align-items: start;
   }
@@ -116,17 +116,6 @@
   .item-body { min-width: 0; }
   .item-title { font-size: .9rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
   .item-desc { font-size: .8rem; color: var(--text-2); line-height: 1.55; }
-
-  .effort-badge {
-    font-size: .68rem; font-weight: 500;
-    padding: .2rem .6rem; border-radius: 20px;
-    white-space: nowrap; flex-shrink: 0;
-    margin-top: .15rem;
-  }
-  .effort-badge.high { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
-  .effort-badge.med { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
-  .effort-badge.low { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-  .effort-badge.quick { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
 
   /* Legend */
   .legend {
@@ -156,8 +145,6 @@
   @media (max-width: 600px) {
     body { padding: 1.5rem 1rem 4rem; }
     .summary-row { grid-template-columns: repeat(2, 1fr); }
-    .item { grid-template-columns: auto 1fr; }
-    .effort-badge { grid-column: 2; }
     .header h1 { font-size: 1.35rem; }
   }
 </style>
@@ -199,6 +186,10 @@
     <div class="legend-item"><span class="legend-dot blue"></span> Quick win</div>
   </div>
 
+  <div style="background:rgba(96,165,250,0.07);border-left:3px solid #60a5fa;border-radius:0 8px 8px 0;padding:.7rem 1rem;margin-bottom:2rem;font-size:.82rem;color:#93c5fd;line-height:1.55">
+    <strong style="font-weight:600">Design system decision:</strong> Lumos is the agreed framework going forward. All new components, CSS tokens, and utility classes should follow Lumos conventions.
+  </div>
+
   <div class="section">
     <div class="section-label">Performance</div>
 
@@ -208,7 +199,6 @@
         <div class="item-title">Audit and reduce third-party scripts</div>
         <div class="item-desc">Lighthouse identifies render-blocking scripts as the top bottleneck. Run a full script audit — identify any unused tags, old tracking pixels, or duplicated analytics snippets and remove them. This alone can move the performance score by 10–15 points.</div>
       </div>
-      <span class="effort-badge med">2–3 days</span>
     </div>
 
     <div class="item">
@@ -217,7 +207,6 @@
         <div class="item-title">Optimise images across all pages</div>
         <div class="item-desc">Convert images to WebP, enable lazy loading on below-the-fold images, and fix any images served at 2–3× their display size. Images are a major contributor to the 25/100 mobile score.</div>
       </div>
-      <span class="effort-badge med">2–4 days</span>
     </div>
 
     <div class="item">
@@ -226,7 +215,6 @@
         <div class="item-title">Enable Webflow asset compression and CDN settings</div>
         <div class="item-desc">Check that Webflow's built-in minification is on, assets are served from the CDN edge, and no custom code is bypassing it. Quick setting check but high leverage.</div>
       </div>
-      <span class="effort-badge quick">1–2 hrs</span>
     </div>
   </div>
 
@@ -239,7 +227,6 @@
         <div class="item-title">Remove 660 duplicate CSS classes</div>
         <div class="item-desc">660 classes exist as numbered clones (e.g. <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">button-2</code>, <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">u-gap-2-2</code>). These are dead stylesheet weight from pasting components between projects. Safe to bulk-delete in Webflow's style manager.</div>
       </div>
-      <span class="effort-badge med">1–2 days</span>
     </div>
 
     <div class="item">
@@ -248,16 +235,14 @@
         <div class="item-title">Consolidate 3 competing CSS variable systems</div>
         <div class="item-desc">Three separate token sets define the same colour values. Consolidate to the Lumos system and find/replace all references to the deprecated <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">--old-*</code> variables (28 still in use).</div>
       </div>
-      <span class="effort-badge med">1 day</span>
     </div>
 
     <div class="item">
       <div class="item-icon amber">6</div>
       <div class="item-body">
-        <div class="item-title">Pick one utility framework — Lumos or Client-First, not both</div>
-        <div class="item-desc">Lumos <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">u-</code> classes and Finsweet Client-First utilities are competing for the same layout jobs. Decide on Lumos (already the majority) and phase out Client-First utilities to avoid conflicts.</div>
+        <div class="item-title">Phase out Client-First utilities in favour of Lumos</div>
+        <div class="item-desc">Lumos is the agreed design system going forward. Finsweet Client-First utilities are still competing for the same layout jobs and should be phased out. Identify all Client-First <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">u-</code> class usages and replace with their Lumos equivalents.</div>
       </div>
-      <span class="effort-badge high">3–5 days</span>
     </div>
   </div>
 
@@ -270,7 +255,6 @@
         <div class="item-title">Replace 8 legacy components still live on pages</div>
         <div class="item-desc">8 of 11 legacy components are still rendering on live pages. Swap each for its Lumos equivalent. Low risk since Lumos replacements already exist — this is a find-and-replace job in the Webflow designer.</div>
       </div>
-      <span class="effort-badge med">2–3 days</span>
     </div>
 
     <div class="item">
@@ -279,7 +263,6 @@
         <div class="item-title">Consolidate 7 navigation components down to 2</div>
         <div class="item-desc">There are 7 separate nav variants where there should be 2 (default + light start). The extras are duplicates from different agencies each making their own version. Consolidate and replace across all pages.</div>
       </div>
-      <span class="effort-badge high">3–5 days</span>
     </div>
 
     <div class="item">
@@ -288,7 +271,6 @@
         <div class="item-title">Fix naming on Footer and NavBar components</div>
         <div class="item-desc">Footer (primary) and both NavBar variants have mixed naming conventions — some classes use camelCase, some use BEM, some are unlabelled. Low risk cleanup, just rename in the Webflow style manager.</div>
       </div>
-      <span class="effort-badge quick">Half a day</span>
     </div>
   </div>
 
@@ -301,7 +283,6 @@
         <div class="item-title">Install Microsoft Clarity</div>
         <div class="item-desc">Currently zero session recording or heatmap visibility. PhotoDay creates a free Clarity account, gets the snippet, and it gets added via Google Tag Manager. Takes about 10 minutes and provides immediate user behaviour data once traffic flows.</div>
       </div>
-      <span class="effort-badge quick">10 min</span>
     </div>
   </div>
 
