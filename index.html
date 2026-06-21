@@ -238,29 +238,6 @@ tbody td{padding:14px 16px;vertical-align:middle}
   .summary-numbers{grid-template-columns:repeat(3,1fr)!important}
   .summary-roadmap{overflow-x:auto}
   .summary-roadmap table{min-width:480px}
-  /* Fixes */
-  .fixes-stats{grid-template-columns:repeat(2,1fr)!important}
-}
-/* Fixes tab */
-.fix-section{margin-bottom:2rem}
-.fix-section-label{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
-.fix-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.fix-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;margin-bottom:.5rem;display:grid;grid-template-columns:auto 1fr;gap:.75rem 1rem;align-items:start}
-.fix-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem;font-size:.75rem;font-weight:700}
-.fix-icon.red{background:rgba(248,113,113,0.08);color:#f87171}
-.fix-icon.amber{background:rgba(251,191,36,0.08);color:#fbbf24}
-.fix-icon.green{background:rgba(74,222,128,0.08);color:#4ade80}
-.fix-icon.blue{background:rgba(96,165,250,0.08);color:#60a5fa}
-.fix-title{font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:.2rem}
-.fix-desc{font-size:.8rem;color:var(--text-2);line-height:1.55}
-.fix-legend{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:1.5rem;padding:.65rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:10px}
-.fix-legend-item{display:flex;align-items:center;gap:.4rem;font-size:.75rem;color:var(--text-2)}
-.fix-dot{width:8px;height:8px;border-radius:50%}
-.fix-dot.red{background:#f87171}
-.fix-dot.amber{background:#fbbf24}
-.fix-dot.green{background:#4ade80}
-.fix-dot.blue{background:#60a5fa}
-.fixes-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin-bottom:1.75rem}
 @media(max-width:400px){
   .summary-numbers{grid-template-columns:repeat(2,1fr)!important}
   .css-stat-grid{grid-template-columns:1fr!important}
@@ -305,7 +282,6 @@ tbody td{padding:14px 16px;vertical-align:middle}
     <button class="tab-btn" onclick="showTab('css',this)">CSS audit</button>
     <button class="tab-btn" onclick="showTab('clarity',this)">Clarity setup</button>
     <button class="tab-btn" onclick="showTab('summary',this)">Summary</button>
-    <button class="tab-btn" onclick="showTab('fixes',this)">Fixes</button>
   </div>
   <div id="tab-description" class="tab-desc-bar td-good"></div>
 
@@ -857,138 +833,6 @@ tbody td{padding:14px 16px;vertical-align:middle}
     </div>
   </div>
 
-  <div id="tab-fixes" class="tab-panel">
-    <div style="max-width:780px">
-
-      <div class="fixes-stats">
-        <div class="css-stat-card">
-          <div class="css-stat-label">Perf · mobile</div>
-          <div class="css-stat-val css-stat-bad">25</div>
-        </div>
-        <div class="css-stat-card">
-          <div class="css-stat-label">Perf · desktop</div>
-          <div class="css-stat-val css-stat-bad">34</div>
-        </div>
-        <div class="css-stat-card">
-          <div class="css-stat-label">Duplicate classes</div>
-          <div class="css-stat-val css-stat-warn">660</div>
-        </div>
-        <div class="css-stat-card">
-          <div class="css-stat-label">Legacy components live</div>
-          <div class="css-stat-val css-stat-info">8</div>
-        </div>
-      </div>
-
-      <div class="fix-legend">
-        <div class="fix-legend-item"><span class="fix-dot red"></span> Critical</div>
-        <div class="fix-legend-item"><span class="fix-dot amber"></span> Important</div>
-        <div class="fix-legend-item"><span class="fix-dot green"></span> Low risk</div>
-        <div class="fix-legend-item"><span class="fix-dot blue"></span> Quick win</div>
-      </div>
-
-      <div style="background:rgba(96,165,250,0.07);border-left:3px solid #60a5fa;border-radius:0 8px 8px 0;padding:.7rem 1rem;margin-bottom:1.75rem;font-size:.82rem;color:#93c5fd;line-height:1.55">
-        <strong style="font-weight:600">Agreed direction:</strong> All new design and development work uses Lumos. Nothing currently on the site will be removed — only new work follows this rule.
-      </div>
-
-      <div class="fix-section">
-        <div class="fix-section-label">Site speed</div>
-        <div class="fix-item">
-          <div class="fix-icon red">1</div>
-          <div>
-            <div class="fix-title">Find and remove scripts slowing the site down</div>
-            <div class="fix-desc">The site loads too many background scripts — old tracking codes, unused tools, and duplicates. Go through them, remove what isn't needed, keep only what's in active use. This is the single biggest lever for improving load speed.</div>
-          </div>
-        </div>
-        <div class="fix-item">
-          <div class="fix-icon red">2</div>
-          <div>
-            <div class="fix-title">Fix images — too heavy, slowing every page</div>
-            <div class="fix-desc">Many images are served much larger than they need to be, especially on mobile. Convert to WebP and enable lazy loading so images only load when the visitor scrolls to them.</div>
-          </div>
-        </div>
-        <div class="fix-item">
-          <div class="fix-icon red">3</div>
-          <div>
-            <div class="fix-title">Turn on Webflow's built-in speed settings</div>
-            <div class="fix-desc">Webflow has built-in options that compress files and serve them from a CDN edge — they just need to be switched on. A quick settings check with immediate impact on load time.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="fix-section">
-        <div class="fix-section-label">CSS</div>
-        <div class="fix-item">
-          <div class="fix-icon amber">4</div>
-          <div>
-            <div class="fix-title">Stop creating style duplicates when adding new sections</div>
-            <div class="fix-desc">660 extra style copies have built up from different people pasting in components. The ideal fix is to remove all unused classes entirely — if that's not possible, the minimum is to stop adding new ones. Going forward, use Lumos class names directly to avoid creating new numbered clones.</div>
-          </div>
-        </div>
-        <div class="fix-item">
-          <div class="fix-icon amber">5</div>
-          <div>
-            <div class="fix-title">Use one colour system across the whole site</div>
-            <div class="fix-desc">Three separate places currently define the same colour values, leading to inconsistencies. Consolidate everything to Lumos tokens — this also means removing all unused colour variables that are no longer referenced anywhere on the site.</div>
-          </div>
-        </div>
-        <div class="fix-item">
-          <div class="fix-icon amber">6</div>
-          <div>
-            <div class="fix-title">All new work built with Lumos — existing Finsweet stays in place</div>
-            <div class="fix-desc">Going forward, all new sections and components use Lumos. Existing Finsweet/Client-First code is untouched — this is purely about making sure everything added from here on follows one consistent system.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="fix-section">
-        <div class="fix-section-label">Components</div>
-        <div class="fix-item">
-          <div class="fix-icon amber">7</div>
-          <div>
-            <div class="fix-title">Update 8 outdated page sections to current versions</div>
-            <div class="fix-desc">8 sections are still using legacy versions that should have been replaced. The Lumos replacements already exist — it's a page-by-page swap in the Webflow designer.</div>
-          </div>
-        </div>
-        <div class="fix-item">
-          <div class="fix-icon amber">8</div>
-          <div>
-            <div class="fix-title">Clean up the navigation — 7 versions exist, only 2 needed</div>
-            <div class="fix-desc">7 slightly different nav variants were created by different teams over time. Only 2 are needed (default + light start). Replace the extras across all pages.</div>
-          </div>
-        </div>
-        <div class="fix-item">
-          <div class="fix-icon green">9</div>
-          <div>
-            <div class="fix-title">Tidy up names on the footer and navigation sections</div>
-            <div class="fix-desc">Footer and NavBar variants have inconsistent internal naming — a mix of camelCase, BEM, and unlabelled classes. Straightforward rename with no visual changes to the site.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="fix-section">
-        <div class="fix-section-label">Analytics</div>
-        <div class="fix-item">
-          <div class="fix-icon blue">10</div>
-          <div>
-            <div class="fix-title">Set up visitor recordings so we can see how people use the site</div>
-            <div class="fix-desc">There's currently no way to see where visitors click, where they drop off, or what's confusing them. Microsoft Clarity is free, installs via GTM in about 10 minutes, and gives immediate session recording and heatmap data.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="fix-section">
-        <div class="fix-section-label">Bigger picture</div>
-        <div class="fix-item">
-          <div class="fix-icon red">11</div>
-          <div>
-            <div class="fix-title">Consider a full rebuild</div>
-            <div class="fix-desc">Probably the easiest way to truly get this site on the right track — lightweight, fast, and built consistently from the ground up — is a full rebuild. Years of different agencies working in their own way has created layers of debt that are difficult to untangle piece by piece. If a rebuild isn't on the table, the fixes above are the next best path forward.</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
 
 </div>
 <script>
@@ -1248,8 +1092,7 @@ var tabDescriptions = {
   speed:       {s:'bad',   t:'Performance is the biggest problem on the site. Desktop scores 34/100 and mobile scores 25/100 — both deep in the red. Anything under 50 hurts conversion. The good news: SEO is a perfect 100 on both devices and accessibility is a solid 85.'},
   css:         {s:'bad',   t:'The stylesheet is heavily bloated. 660 classes are just numbered copies of other classes, 3 separate variable systems define the same colour tokens, and two utility frameworks (Lumos u- and Client-First) are competing for the same layout jobs. Architecture scores average around 3–4/10 — the underlying design system is solid, but years of pasting between projects has left a lot of debris.'},
   clarity:     {s:'warn',  t:'Clarity is not installed yet — there is currently zero visibility into how users actually behave on the site. No session recordings, no heatmaps, no click data. This is a 10-minute GTM install and should be done before any optimisation work starts so decisions can be based on real data.'},
-  summary:     {s:'info',  t:'The Lumos component library is the healthiest part of the site. Everything else needs work: performance is critically low, the stylesheet is bloated with 660 duplicate classes, and 8 legacy components are still live. The cleanup is achievable — it\'s mostly removing what doesn\'t belong rather than rebuilding from scratch.'},
-  fixes:       {s:'warn',  t:'10 prioritised fixes ordered by impact. Performance is the most urgent — desktop scores 34/100 and mobile 25/100. Existing Finsweet code stays in place; all new work follows Lumos going forward.'}
+  summary:     {s:'info',  t:'The Lumos component library is the healthiest part of the site. Everything else needs work: performance is critically low, the stylesheet is bloated with 660 duplicate classes, and 8 legacy components are still live. The cleanup is achievable — it\'s mostly removing what doesn\'t belong rather than rebuilding from scratch.'}
 };
 
 function showTab(id,btn) {
