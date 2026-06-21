@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photoday.com — Site Repair Report</title>
+<style>
+  :root {
+    --bg: #0b0b18;
+    --surface: #13131f;
+    --surface-2: #1a1a2e;
+    --border: rgba(255,255,255,0.07);
+    --border-2: rgba(255,255,255,0.12);
+    --text: #f0f0f8;
+    --text-2: #9090aa;
+    --text-3: #5a5a72;
+    --red: #f87171;
+    --red-bg: rgba(248,113,113,0.08);
+    --red-border: rgba(248,113,113,0.3);
+    --amber: #fbbf24;
+    --amber-bg: rgba(251,191,36,0.08);
+    --amber-border: rgba(251,191,36,0.3);
+    --green: #4ade80;
+    --green-bg: rgba(74,222,128,0.08);
+    --green-border: rgba(74,222,128,0.3);
+    --blue: #60a5fa;
+    --blue-bg: rgba(96,165,250,0.08);
+    --blue-border: rgba(96,165,250,0.3);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    padding: 3rem 1.5rem 6rem;
+  }
+
+  /* Scrollbars */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+  * { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+
+  .page { max-width: 720px; margin: 0 auto; }
+
+  /* Header */
+  .header { margin-bottom: 3rem; }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: .5rem; }
+  .header h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -.02em; }
+  .date-chip {
+    font-size: .75rem; color: var(--text-2);
+    background: var(--surface); border: 1px solid var(--border-2);
+    border-radius: 20px; padding: .3rem .8rem;
+    white-space: nowrap; margin-top: .3rem;
+  }
+  .header-sub { font-size: .9rem; color: var(--text-2); }
+
+  /* Summary row */
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .65rem;
+    margin-bottom: 2.5rem;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+  }
+  .stat-val { font-size: 1.6rem; font-weight: 700; line-height: 1; margin-bottom: .3rem; }
+  .stat-lbl { font-size: .68rem; font-weight: 500; text-transform: uppercase; letter-spacing: .07em; color: var(--text-2); }
+  .stat-val.red { color: var(--red); }
+  .stat-val.amber { color: var(--amber); }
+  .stat-val.blue { color: var(--blue); }
+
+  /* Section */
+  .section { margin-bottom: 2.5rem; }
+  .section-label {
+    font-size: .68rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .1em; color: var(--text-3);
+    margin-bottom: .85rem;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* Item */
+  .item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: .5rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: .75rem 1rem;
+    align-items: start;
+  }
+  .item-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: .1rem;
+    font-size: .75rem; font-weight: 700;
+  }
+  .item-icon.red { background: var(--red-bg); color: var(--red); }
+  .item-icon.amber { background: var(--amber-bg); color: var(--amber); }
+  .item-icon.green { background: var(--green-bg); color: var(--green); }
+  .item-icon.blue { background: var(--blue-bg); color: var(--blue); }
+
+  .item-body { min-width: 0; }
+  .item-title { font-size: .9rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
+  .item-desc { font-size: .8rem; color: var(--text-2); line-height: 1.55; }
+
+  .effort-badge {
+    font-size: .68rem; font-weight: 500;
+    padding: .2rem .6rem; border-radius: 20px;
+    white-space: nowrap; flex-shrink: 0;
+    margin-top: .15rem;
+  }
+  .effort-badge.high { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+  .effort-badge.med { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+  .effort-badge.low { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .effort-badge.quick { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+
+  /* Legend */
+  .legend {
+    display: flex; gap: 1.25rem; flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding: .75rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .legend-item { display: flex; align-items: center; gap: .4rem; font-size: .75rem; color: var(--text-2); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .legend-dot.red { background: var(--red); }
+  .legend-dot.amber { background: var(--amber); }
+  .legend-dot.green { background: var(--green); }
+  .legend-dot.blue { background: var(--blue); }
+
+  /* Footer note */
+  .footer-note {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: .78rem;
+    color: var(--text-3);
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 1.5rem 1rem 4rem; }
+    .summary-row { grid-template-columns: repeat(2, 1fr); }
+    .item { grid-template-columns: auto 1fr; }
+    .effort-badge { grid-column: 2; }
+    .header h1 { font-size: 1.35rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-top">
+      <h1>Photoday.com — site repair report</h1>
+      <span class="date-chip">June 2026</span>
+    </div>
+    <p class="header-sub">Full audit of components, CSS, performance, and analytics. Items ordered by priority.</p>
+  </div>
+
+  <div class="summary-row">
+    <div class="stat-card">
+      <div class="stat-val red">25</div>
+      <div class="stat-lbl">Perf · mobile</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val red">34</div>
+      <div class="stat-lbl">Perf · desktop</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val amber">660</div>
+      <div class="stat-lbl">Duplicate classes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val blue">8</div>
+      <div class="stat-lbl">Legacy components live</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot red"></span> Critical</div>
+    <div class="legend-item"><span class="legend-dot amber"></span> Important</div>
+    <div class="legend-item"><span class="legend-dot green"></span> Low risk</div>
+    <div class="legend-item"><span class="legend-dot blue"></span> Quick win</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Performance</div>
+
+    <div class="item">
+      <div class="item-icon red">1</div>
+      <div class="item-body">
+        <div class="item-title">Audit and reduce third-party scripts</div>
+        <div class="item-desc">Lighthouse identifies render-blocking scripts as the top bottleneck. Run a full script audit — identify any unused tags, old tracking pixels, or duplicated analytics snippets and remove them. This alone can move the performance score by 10–15 points.</div>
+      </div>
+      <span class="effort-badge med">2–3 days</span>
+    </div>
+
+    <div class="item">
+      <div class="item-icon red">2</div>
+      <div class="item-body">
+        <div class="item-title">Optimise images across all pages</div>
+        <div class="item-desc">Convert images to WebP, enable lazy loading on below-the-fold images, and fix any images served at 2–3× their display size. Images are a major contributor to the 25/100 mobile score.</div>
+      </div>
+      <span class="effort-badge med">2–4 days</span>
+    </div>
+
+    <div class="item">
+      <div class="item-icon red">3</div>
+      <div class="item-body">
+        <div class="item-title">Enable Webflow asset compression and CDN settings</div>
+        <div class="item-desc">Check that Webflow's built-in minification is on, assets are served from the CDN edge, and no custom code is bypassing it. Quick setting check but high leverage.</div>
+      </div>
+      <span class="effort-badge quick">1–2 hrs</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">CSS cleanup</div>
+
+    <div class="item">
+      <div class="item-icon amber">4</div>
+      <div class="item-body">
+        <div class="item-title">Remove 660 duplicate CSS classes</div>
+        <div class="item-desc">660 classes exist as numbered clones (e.g. <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">button-2</code>, <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">u-gap-2-2</code>). These are dead stylesheet weight from pasting components between projects. Safe to bulk-delete in Webflow's style manager.</div>
+      </div>
+      <span class="effort-badge med">1–2 days</span>
+    </div>
+
+    <div class="item">
+      <div class="item-icon amber">5</div>
+      <div class="item-body">
+        <div class="item-title">Consolidate 3 competing CSS variable systems</div>
+        <div class="item-desc">Three separate token sets define the same colour values. Consolidate to the Lumos system and find/replace all references to the deprecated <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">--old-*</code> variables (28 still in use).</div>
+      </div>
+      <span class="effort-badge med">1 day</span>
+    </div>
+
+    <div class="item">
+      <div class="item-icon amber">6</div>
+      <div class="item-body">
+        <div class="item-title">Pick one utility framework — Lumos or Client-First, not both</div>
+        <div class="item-desc">Lumos <code style="background:rgba(255,255,255,0.07);padding:.1em .35em;border-radius:4px;font-size:.85em">u-</code> classes and Finsweet Client-First utilities are competing for the same layout jobs. Decide on Lumos (already the majority) and phase out Client-First utilities to avoid conflicts.</div>
+      </div>
+      <span class="effort-badge high">3–5 days</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Components</div>
+
+    <div class="item">
+      <div class="item-icon amber">7</div>
+      <div class="item-body">
+        <div class="item-title">Replace 8 legacy components still live on pages</div>
+        <div class="item-desc">8 of 11 legacy components are still rendering on live pages. Swap each for its Lumos equivalent. Low risk since Lumos replacements already exist — this is a find-and-replace job in the Webflow designer.</div>
+      </div>
+      <span class="effort-badge med">2–3 days</span>
+    </div>
+
+    <div class="item">
+      <div class="item-icon amber">8</div>
+      <div class="item-body">
+        <div class="item-title">Consolidate 7 navigation components down to 2</div>
+        <div class="item-desc">There are 7 separate nav variants where there should be 2 (default + light start). The extras are duplicates from different agencies each making their own version. Consolidate and replace across all pages.</div>
+      </div>
+      <span class="effort-badge high">3–5 days</span>
+    </div>
+
+    <div class="item">
+      <div class="item-icon green">9</div>
+      <div class="item-body">
+        <div class="item-title">Fix naming on Footer and NavBar components</div>
+        <div class="item-desc">Footer (primary) and both NavBar variants have mixed naming conventions — some classes use camelCase, some use BEM, some are unlabelled. Low risk cleanup, just rename in the Webflow style manager.</div>
+      </div>
+      <span class="effort-badge quick">Half a day</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Analytics</div>
+
+    <div class="item">
+      <div class="item-icon blue">10</div>
+      <div class="item-body">
+        <div class="item-title">Install Microsoft Clarity</div>
+        <div class="item-desc">Currently zero session recording or heatmap visibility. PhotoDay creates a free Clarity account, gets the snippet, and it gets added via Google Tag Manager. Takes about 10 minutes and provides immediate user behaviour data once traffic flows.</div>
+      </div>
+      <span class="effort-badge quick">10 min</span>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Prepared June 2026 · Based on Lighthouse lab data, Webflow style manager export, and manual component audit · photoday.com homepage
+  </div>
+
+</div>
+</body>
+</html>
